@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buscador de Superhéroes</title>
+    <style>
+        body { text-align: center; font-family: Arial, sans-serif; }
+        .hero-card { border: 1px solid black; margin: 10px; padding: 10px; display: inline-block; }
+    </style>
+</head>
+<body>
+    <h1>Buscador de Superhéroes</h1>
+    <input type="text" id="searchInput" placeholder="Nombre del héroe">
+    <button onclick="searchHeroes()">Buscar</button>
+    <div id="results"></div>
+    
+    <script>
+        async function searchHeroes() {
+            const search = document.getElementById("searchInput").value;
+            if (!search) return;
+            
+            try {
+                const response = await axios.get(`http://localhost:5000/api/search/${search}`);
+                const data = response.data;
+                
+                const resultsDiv = document.getElementById("results");
+                resultsDiv.innerHTML = "";
+                
+                if (data.results) {
+                    data.results.forEach(hero => {
+                        const heroCard = document.createElement("div");
+                        heroCard.className = "hero-card";
+                        heroCard.innerHTML = `<h2>${hero.name}</h2><img src="${hero.image.url}" alt="${hero.name}" width="150">`;
+                        resultsDiv.appendChild(heroCard);
+                    });
+                } else {
+                    resultsDiv.innerHTML = "<p>No se encontraron héroes</p>";
+                }
+            } catch (error) {
+                console.error("Error al buscar héroes", error);
+            }
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</body>
+</html>
