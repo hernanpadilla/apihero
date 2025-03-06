@@ -1,11 +1,23 @@
 {
   "version": 2,
   "builds": [
-    { "src": "src/server.js", "use": "@vercel/node" },
-    { "src": "public/**", "use": "@vercel/static" }
+    {
+      "src": "server.js",  // ¡Aquí estaba el error! No hay carpeta "src"
+      "use": "@vercel/node"
+    },
+    {
+      "src": "public/**",
+      "use": "@vercel/static"
+    }
   ],
   "routes": [
-    { "src": "/api/(.*)", "dest": "/src/server.js" },
-    { "src": "/(.*)", "dest": "/public/$1" }
+    {
+      "src": "/api/(.*)",
+      "dest": "server.js"  // Corrige la ruta al servidor
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/public/$1" // Sirve archivos estáticos
+    }
   ]
 }
