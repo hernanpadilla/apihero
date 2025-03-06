@@ -8,6 +8,8 @@
         body { text-align: center; font-family: Arial, sans-serif; }
         .hero-card { border: 1px solid black; margin: 10px; padding: 10px; display: inline-block; }
     </style>
+    <!-- Mover Axios aquí arriba -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 <body>
     <h1>Buscador de Superhéroes</h1>
@@ -21,8 +23,8 @@
             if (!search) return;
             
             try {
-                //const response = await axios.get(`http://localhost:5000/api/search/${search}`);
-                const response = await axios.get(`${process.env.API_URL || ''}/api/search/${query}`);
+                // Usar una URL relativa o la URL completa de la API en producción
+                const response = await axios.get(`/api/search/${search}`);
                 const data = response.data;
                 
                 const resultsDiv = document.getElementById("results");
@@ -40,9 +42,9 @@
                 }
             } catch (error) {
                 console.error("Error al buscar héroes", error);
+                document.getElementById("results").innerHTML = "<p>Error al buscar héroes. Intenta nuevamente.</p>";
             }
         }
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </body>
 </html>
