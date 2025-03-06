@@ -21,7 +21,8 @@
             if (!search) return;
             
             try {
-                const response = await axios.get(`http://localhost:5000/api/search/${search}`);
+                //const response = await axios.get(`http://localhost:5000/api/search/${search}`);
+                const response = await axios.get(`${process.env.API_URL || ''}/api/search/${query}`);
                 const data = response.data;
                 
                 const resultsDiv = document.getElementById("results");
