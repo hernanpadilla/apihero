@@ -13,11 +13,11 @@
   "routes": [
     {
       "src": "/api/(.*)",
-      "dest": "server.js"  // Corrige la ruta al servidor
+      "dest": "server.js"  
     },
     {
       "src": "/(.*)",
-      "dest": "/public/$1" // Sirve archivos estáticos
+      "dest": "/public/$1" 
     }
   ]
 }
